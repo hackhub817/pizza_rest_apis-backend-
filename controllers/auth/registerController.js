@@ -80,25 +80,25 @@ const registerController={
 }
 
 
-// controller
-const register = async (req, res) => {
-  try{
-    const registerSchema=Joi.object({
-      name:Joi.string().min(3).max(30).required(),
-      email:Joi.string().email().required(),
-      password:Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
-      repeat_password:Joi.ref('password')
-   });
+// // controller
+// const register = async (req, res) => {
+//   try{
+//     const registerSchema=Joi.object({
+//       name:Joi.string().min(3).max(30).required(),
+//       email:Joi.string().email().required(),
+//       password:Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+//       repeat_password:Joi.ref('password')
+//    });
    
-   const {error} = registerSchema.validate(req.body);
+//    const {error} = registerSchema.validate(req.body);
    
-   if(error){
-      throw res.send({ error: "Validation error" });                                         
-   }
-  }catch(err){
-    console.error(err);
-    return res.send({ error: "Server Error"});
-  }
-}
+//    if(error){
+//       throw res.send({ error: "Validation error" });                                         
+//    }
+//   }catch(err){
+//     console.error(err);
+//     return res.send({ error: "Server Error"});
+//   }
+// }
 
 module.exports=registerController;
