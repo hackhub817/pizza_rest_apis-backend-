@@ -5,7 +5,8 @@ dotenv.config();
  const x= {
     APP_PORT,
     DEBUG_MODE,
-    JWT_SECRET
+    JWT_SECRET,
+    REFRESH_SECRET
 } =process.env;
 
 module.exports=x;

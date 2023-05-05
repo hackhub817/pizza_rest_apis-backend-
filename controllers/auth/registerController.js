@@ -1,11 +1,11 @@
 
 const Joi = require("joi");
-
+const {REFRESH_SECRET}=require("../../config");
 const JwtService= require("../../services/JwtService");
 //THIS IS USED TO HASH THE PASSWORD
 const  bcrypt = require("bcrypt");
 
-const {User}  = require("../../models");
+const {User, RefreshToken}  = require("../../models");
 const CustomErrorHandler = require("../../services/CustomErrorHandler");
 
 const registerController={
@@ -59,14 +59,24 @@ const registerController={
       password: hashedPassword
   });
    //  User.save();
+   //to generate access_token
     let access_token;
+    //to generate refresh_token
+    let refresh_token;
+
     try{
       const result=await user.save();
 
        console.log(result);
       //Toekn will be used
      access_token=JwtService.sign({_id:result._id,role: result.role});
-     console.log(access_token);
+  
+     refresh_token=JwtService.sign({_id:result._id,role: result.role},'1y',REFRESH_SECRET);
+     
+     //STORE REFRESH TOKEN INTO THE DATA BASE
+     //FOR THAT CREATE DATABASE FIRST
+       
+     await RefreshToken.create({token:refresh_token});
     }
     catch(err)
     {
@@ -75,7 +85,7 @@ const registerController={
     }
 
 
-        res.json({access_token});
+        res.json({access_token,refresh_token});
     }
 }
 
