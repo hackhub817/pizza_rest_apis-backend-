@@ -8,9 +8,9 @@ const userController={
    //logic
 
    try{
-    const user=await User.findOne({_id:req.user._id});
+    const user=await await User.findOne({_id:req.user._id}).select('-password -updateAt -__v');
    if(!user)
-   {
+   { 
     return next(CustomErrorHandler.notFound());
    }
    res.json(user);

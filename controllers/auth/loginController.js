@@ -58,7 +58,7 @@ async logout(req ,res , next)
   //validation
   const logSchema=Joi.object({
     refresh_token:Joi.string().required()
-});
+     });
 
 const {error}=logSchema.validate(req.body);
 if(error){
@@ -66,13 +66,15 @@ if(error){
 }
   //delete the refrsh token and you will be logout
   try{
-    await RefreshToken.deleteOne({token:req.body.refresh});
+    await RefreshToken.deleteOne({token:req.body.refresh_token});
 
   }
   catch(err)
   {
     return next(new Error('Something went wrong'));
   }
+ 
+  res.json({status:1});
 }
 };
 
