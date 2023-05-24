@@ -7,6 +7,7 @@ console.log(User);
 //exports.default = User
 
 const RefreshToken = require("./refreshToken");
+const Product = require("./product");
 
-module.exports={User,RefreshToken};
+module.exports={User,RefreshToken,Product};
 
